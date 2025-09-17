@@ -76,9 +76,11 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Knewave
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Knewave-Regular.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        
+          
     - family: Changa One
       fonts:
         - asset: assets/fonts/ChangaOne-Regular.ttf

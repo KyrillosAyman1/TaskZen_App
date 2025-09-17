@@ -1,10 +1,9 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:taskzen_app/constant.dart';
 import 'package:taskzen_app/widgets/custom_app_bar.dart';
 import 'package:taskzen_app/widgets/custom_date_picker.dart';
 import 'package:taskzen_app/widgets/task_card.dart';
+import 'package:taskzen_app/widgets/task_list_view.dart';
 import 'package:taskzen_app/widgets/today_data.dart';
 
 class TaskViewBody extends StatefulWidget {
@@ -29,17 +28,4 @@ class _TaskViewBodyState extends State<TaskViewBody> {
   }
 }
 
-class TaskListView extends StatelessWidget {
-  const TaskListView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return TaskCard();
-        },
-      ),
-    );
-  }
-}

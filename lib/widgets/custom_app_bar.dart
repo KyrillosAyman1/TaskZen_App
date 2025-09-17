@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget {
         fontWeight: FontWeight.bold,
 
       ),),
-      trailing: Card(
+      trailing:  Card(
         
         color: Theme.of(context).colorScheme.primaryContainer,
         child: IconButton(

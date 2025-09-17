@@ -17,7 +17,7 @@ class TaskzenApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        fontFamily: 'Changa One',
+        fontFamily: 'Poppins',
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

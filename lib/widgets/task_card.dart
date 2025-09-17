@@ -8,21 +8,21 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-      child: Card(
+      child:  Card(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: ListTile(
         
-          title: Text(
+          title: const Text(
             "Task 1",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Column(
+          subtitle: const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 12.0),
+                padding:  EdgeInsets.only(top: 12.0),
                 child: Text(
                   "This is a sample task description for the task card widget.",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),

@@ -6,23 +6,23 @@ class TodayData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
+    return  ListTile(
+      title: const Text(
         "September 20, 2024",
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        style:  TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(
+      subtitle:const  Text(
         "Saturday",
         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
       trailing: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+          padding:const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
           backgroundColor: kPrimaryColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         onPressed: () {},
-        child: Text(
+        child:const Text(
           "+ Add Task",
           style: TextStyle(
             fontSize: 18,

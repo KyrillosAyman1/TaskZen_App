@@ -13,9 +13,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return  Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: SizedBox(
+      child :  SizedBox(
         height: 100,
         child: Card(
           color: Theme.of(context).colorScheme.primaryContainer,

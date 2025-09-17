@@ -1,4 +1,3 @@
-
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -14,21 +13,33 @@ class TaskViewBody extends StatefulWidget {
   @override
   State<TaskViewBody> createState() => _TaskViewBodyState();
 }
- 
+
 class _TaskViewBodyState extends State<TaskViewBody> {
-  
   @override
   Widget build(BuildContext context) {
     return Column(
-      children:   [
-        SizedBox(height: 20,),
+      children: [
+        SizedBox(height: 20),
         CustomAppBar(),
         TodayData(),
-         CustomDatePicker(),
-         TaskCard()
-        
+        CustomDatePicker(),
+        TaskListView()
       ],
     );
   }
 }
 
+class TaskListView extends StatelessWidget {
+  const TaskListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return TaskCard();
+        },
+      ),
+    );
+  }
+}

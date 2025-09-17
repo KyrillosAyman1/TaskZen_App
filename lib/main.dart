@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskzen_app/views/task_view.dart';
 
 void main() {
   runApp(const TaskzenApp());
@@ -13,20 +14,16 @@ class TaskzenApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      themeMode: ThemeMode.system,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
       ),
-      home:  Scaffold(),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
+      ),
+
+      home: const TaskView() 
     );
   }
 }
 
-
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

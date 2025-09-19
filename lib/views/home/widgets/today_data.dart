@@ -17,6 +17,7 @@ class TodayData extends StatelessWidget {
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       trailing: CustomElevatedButton(
+        buttonText: "+ Add Task",
         onPressed: () {
         Navigator.push(
           context,

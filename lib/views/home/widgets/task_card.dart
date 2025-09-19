@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:taskzen_app/views/edit%20task/edit_task_view.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({super.key});
@@ -8,58 +9,73 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-      child: Card(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        child: ListTile(
-          title: const Text(
-            "Task 1",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          subtitle: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 12.0),
-                child: Text(
-                  "This is a sample task description for the task card widget.",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(Icons.access_time, size: 16),
-                  SizedBox(width: 5),
-                  Text(
-                    "9:00 AM - 10:00 AM",
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                    maxLines: 1,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return EditTaskView();
+              },
+            ),
+          );
+        },
+        child: Card(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: ListTile(
+            title: const Text(
+              "Task 1",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            subtitle: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 12.0),
+                  child: Text(
+                    "This is a sample task description for the task card widget.",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                ],
-              ),
-            ],
-          ),
-
-          trailing: 1 / 1 == 0
-              ? Lottie.asset(
-                  "assets/images/Trophy.json",
-                  height: 100,
-                  width: 70,
-                  //fit: BoxFit.cover,
-                  repeat: true,
-                  alignment: Alignment.centerRight,
-                )
-              : Lottie.asset(
-                  "assets/images/Cat playing animation.json",
-                  height: 100,
-                  width: 80,
-                  repeat: true,
                 ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(Icons.access_time, size: 16),
+                    SizedBox(width: 5),
+                    Text(
+                      "9:00 AM - 10:00 AM",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            trailing: 1 / 1 == 0
+                ? Lottie.asset(
+                    "assets/images/Trophy.json",
+                    height: 100,
+                    width: 70,
+                    //fit: BoxFit.cover,
+                    repeat: true,
+                    alignment: Alignment.centerRight,
+                  )
+                : Lottie.asset(
+                    "assets/images/Cat playing animation.json",
+                    height: 100,
+                    width: 80,
+                    repeat: true,
+                  ),
+          ),
         ),
       ),
     );

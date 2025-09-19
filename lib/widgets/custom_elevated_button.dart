@@ -4,9 +4,11 @@ import 'package:taskzen_app/constant.dart' show kPrimaryColor;
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
      required this.onPressed,
+      required this.buttonText,
     super.key,
   });
     final void Function()? onPressed;
+    final String buttonText ;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -16,8 +18,9 @@ class CustomElevatedButton extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: onPressed,
-      child: const Text(
-        "+ Add Task",
+      child:  Text(
+        buttonText,
+         
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,

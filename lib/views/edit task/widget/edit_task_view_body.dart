@@ -4,14 +4,14 @@ import 'package:taskzen_app/views/add%20task/widgets/task_form.dart';
 import 'package:taskzen_app/widgets/custom_elevated_button.dart';
 
 
-class AddTaskViewBody extends StatefulWidget {
-  const AddTaskViewBody({super.key});
+class EditTaskViewBody extends StatefulWidget {
+  const EditTaskViewBody({super.key});
 
   @override
-  State<AddTaskViewBody> createState() => _AddTaskViewBodyState();
+  State<EditTaskViewBody> createState() => _AddTaskViewBodyState();
 }
 
-class _AddTaskViewBodyState extends State<AddTaskViewBody> {
+class _AddTaskViewBodyState extends State<EditTaskViewBody> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
@@ -49,7 +49,7 @@ class _AddTaskViewBodyState extends State<AddTaskViewBody> {
               endTimeController: endTimeController,
             ),
              CustomElevatedButton(
-              buttonText: "Create Task",
+              buttonText: "Update Task",
               onPressed: () {}),
           ],
         ),

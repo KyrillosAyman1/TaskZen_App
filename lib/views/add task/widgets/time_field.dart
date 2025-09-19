@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:taskzen_app/views/add%20task/widgets/custom_text_field.dart';
+
+class TimeField extends StatelessWidget {
+  const TimeField({super.key, required this.timeController});
+
+  final TextEditingController timeController;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomTextField(
+      icon: Icons.access_time_sharp,
+      controller: timeController,
+      readOnly: true,
+      onTap: () async {
+        TimeOfDay? pickedTime = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.now(),
+        );
+        if (pickedTime != null) {
+          timeController.text = pickedTime.format(context).toString();
+        }
+      },
+    );
+  }
+}

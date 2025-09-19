@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   date_picker_timeline: ^1.2.7
   lottie: ^3.3.2
+  intl: ^0.20.2
+  flutter_colorpicker: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -78,7 +80,7 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
         
           
     - family: Changa One

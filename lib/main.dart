@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskzen_app/views/task_view.dart';
+import 'package:taskzen_app/views/home/task_view.dart';
 
 void main() {
   runApp(const TaskzenApp());
@@ -24,7 +24,7 @@ class TaskzenApp extends StatelessWidget {
           seedColor: Colors.lightBlue,
           brightness: Brightness.dark,
         ),
-        fontFamily: 'Changa One',
+        fontFamily: 'Poppins',
       ),
 
       home: const TaskView(),

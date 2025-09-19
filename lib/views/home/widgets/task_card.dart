@@ -7,14 +7,13 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
-      child:  Card(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 2.0),
+      child: Card(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: ListTile(
-        
           title: const Text(
             "Task 1",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -22,10 +21,10 @@ class TaskCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:  EdgeInsets.only(top: 12.0),
+                padding: EdgeInsets.only(top: 12.0),
                 child: Text(
                   "This is a sample task description for the task card widget.",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -37,8 +36,9 @@ class TaskCard extends StatelessWidget {
                   SizedBox(width: 5),
                   Text(
                     "9:00 AM - 10:00 AM",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    maxLines: 2,
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
@@ -51,15 +51,14 @@ class TaskCard extends StatelessWidget {
                   height: 100,
                   width: 70,
                   //fit: BoxFit.cover,
-                  repeat: false,
+                  repeat: true,
                   alignment: Alignment.centerRight,
                 )
               : Lottie.asset(
                   "assets/images/Cat playing animation.json",
                   height: 100,
-                  width: 120,
-                  repeat: false,
-                 
+                  width: 80,
+                  repeat: true,
                 ),
         ),
       ),

@@ -1,0 +1,29 @@
+
+import 'package:flutter/material.dart';
+import 'package:taskzen_app/constant.dart' show kPrimaryColor;
+class CustomElevatedButton extends StatelessWidget {
+  const CustomElevatedButton({
+     required this.onPressed,
+    super.key,
+  });
+    final void Function()? onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+        backgroundColor: kPrimaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      onPressed: onPressed,
+      child: const Text(
+        "+ Add Task",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+}

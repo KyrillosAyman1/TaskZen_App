@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskzen_app/constant.dart';
+import 'package:taskzen_app/models/task_model.dart';
 import 'package:taskzen_app/views/home/task_view.dart';
 
 void main() async {
   await Hive.initFlutter();
-   await Hive.openBox(kTaskBox);
+  await Hive.openBox(kTaskBox);
+  Hive.registerAdapter(TaskModelAdapter());
   runApp(const TaskzenApp());
 }
 

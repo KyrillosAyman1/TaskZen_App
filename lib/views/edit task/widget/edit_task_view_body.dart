@@ -18,20 +18,6 @@ class _AddTaskViewBodyState extends State<EditTaskViewBody> {
   final TextEditingController startTimeoController = TextEditingController();
   final TextEditingController endTimeController = TextEditingController();
 
-  @override
-  void initState() {
-    dateController.text =
-        null ?? DateFormat("dd-MM-yyyy").format(DateTime.now());
-
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    startTimeoController.text = TimeOfDay.now().format(context).toString();
-    endTimeController.text = TimeOfDay.now().format(context).toString();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +28,7 @@ class _AddTaskViewBodyState extends State<EditTaskViewBody> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TaskForm(
-              titleController: titleController,
-              descriptionController: descriptionController,
-              dateController: dateController,
-              startTimeoController: startTimeoController,
-              endTimeController: endTimeController,
+             
             ),
              CustomElevatedButton(
               buttonText: "Update Task",

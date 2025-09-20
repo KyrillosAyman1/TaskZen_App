@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.icon ,
     required this.controller,
+ 
   });
   final String? hint;
   final int? maxLines;
@@ -21,6 +22,12 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: TextFormField(
+        validator: (value) {
+          if (value?.isEmpty ?? true) {
+            return 'This field is required';
+          }
+          return null;
+        },
         controller: controller,
         readOnly: readOnly,
         onTap: onTap,

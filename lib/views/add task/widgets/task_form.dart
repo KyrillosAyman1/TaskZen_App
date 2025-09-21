@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:taskzen_app/cubit/add_task_cubit/add_task_cubit.dart';
+import 'package:taskzen_app/models/task_model.dart';
 import 'package:taskzen_app/views/add%20task/widgets/color_field.dart';
 import 'package:taskzen_app/views/add%20task/widgets/custom_text_field.dart';
 import 'package:taskzen_app/views/add%20task/widgets/date_field.dart';
@@ -7,17 +10,14 @@ import 'package:taskzen_app/views/add%20task/widgets/time_field.dart';
 import 'package:taskzen_app/widgets/custom_elevated_button.dart';
 
 class TaskForm extends StatefulWidget {
-  const TaskForm({
-    super.key,
-  });
-
+  const TaskForm({super.key});
 
   @override
   State<TaskForm> createState() => _TaskFormState();
 }
 
 class _TaskFormState extends State<TaskForm> {
-   final TextEditingController titleController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController startTimeController = TextEditingController();
@@ -25,8 +25,9 @@ class _TaskFormState extends State<TaskForm> {
   final TextEditingController colorController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-
- void dispose() {
+  
+  @override
+  void dispose() {
     titleController.dispose();
     descriptionController.dispose();
     dateController.dispose();
@@ -35,11 +36,13 @@ class _TaskFormState extends State<TaskForm> {
     colorController.dispose();
     super.dispose();
   }
+
   @override
   void initState() {
     dateController.text =
         null ?? DateFormat("dd-MM-yyyy").format(DateTime.now());
-     colorController.text = Colors.lightBlue.value.toInt().toString();
+    colorController.text = Colors.lightBlue.value.toString();
+
     super.initState();
   }
 
@@ -49,11 +52,12 @@ class _TaskFormState extends State<TaskForm> {
     startTimeController.text = TimeOfDay.now().format(context).toString();
     endTimeController.text = TimeOfDay.now().format(context).toString();
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      autovalidateMode:autovalidateMode,
+      autovalidateMode: autovalidateMode,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -74,7 +78,6 @@ class _TaskFormState extends State<TaskForm> {
           ),
 
           CustomTextField(
-
             controller: descriptionController,
             hint: "Enter task description",
             maxLines: 5,
@@ -85,7 +88,7 @@ class _TaskFormState extends State<TaskForm> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
 
-          DateField(dateController:dateController),
+          DateField(dateController: dateController),
 
           Row(
             children: [
@@ -101,7 +104,7 @@ class _TaskFormState extends State<TaskForm> {
                       ),
                     ),
 
-                    TimeField(timeController:startTimeController),
+                    TimeField(timeController: startTimeController),
                   ],
                 ),
               ),
@@ -129,7 +132,7 @@ class _TaskFormState extends State<TaskForm> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
 
-          ColorField( colorController: colorController),
+          ColorField(colorController: colorController),
 
           SizedBox(height: 70),
           CustomElevatedButton(
@@ -137,12 +140,20 @@ class _TaskFormState extends State<TaskForm> {
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-              }
-              else{
-                  autovalidateMode = AutovalidateMode.always;
-                  setState(() {
-                    
-                  });
+                var taskModel = TaskModel(
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  date: dateController.text,
+                  startTime: startTimeController.text,
+                  endTime: endTimeController.text,
+                  color: Colors.lightBlue.value,
+                  isCompleted: false,
+                );
+                BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
+               
+              } else {
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {});
               }
             },
           ),

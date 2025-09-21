@@ -1,5 +1,6 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taskzen_app/constant.dart';
 
 class CustomDatePicker extends StatefulWidget {
@@ -10,7 +11,7 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  DateTime selectedDate = DateTime.now();
+  String selectedDate = DateTime.now().toString();
   final DatePickerController _controller = DatePickerController();
 
   @override
@@ -37,7 +38,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             controller: _controller,
             onDateChange: (date) {
               setState(() {
-                selectedDate = date;
+                selectedDate = date.toString();
+               
               });
             },
             daysCount: 45 ,

@@ -15,8 +15,17 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       var taskBox = Hive.box<TaskModel>(kTaskBox);
       await taskBox.add(task);
       emit(AddTaskSuccess());
-    } on Exception catch (e) {
+    }  catch (e) {
       emit(AddTaskFailure(e.toString()));
     }
   }
+
+
 }
+
+
+
+
+
+
+

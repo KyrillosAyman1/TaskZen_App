@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:taskzen_app/views/add%20task/add_task_view.dart';
 import 'package:taskzen_app/widgets/custom_elevated_button.dart';
 
@@ -8,24 +9,25 @@ class TodayData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text(
-        "September 20, 2024",
+      title: Text(
+        "${DateFormat().format(DateTime.now()).split(' ')[0]} ${DateTime.now().day} , ${DateTime.now().year}",
+        //"September 20, 2024",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
-      subtitle: const Text(
-        "Saturday",
+      subtitle: Text(
+        "${DateFormat.EEEE().format(DateTime.now())}",
+        //"Friday",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       trailing: CustomElevatedButton(
         buttonText: "+ Add Task",
         onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AddTaskView()),
-        );
-      },
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddTaskView()),
+          );
+        },
       ),
     );
   }
 }
-

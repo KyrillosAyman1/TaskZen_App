@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:taskzen_app/constant.dart';
+
 import 'package:taskzen_app/models/task_model.dart';
+import 'package:taskzen_app/simple_bloc_observer.dart';
 import 'package:taskzen_app/views/home/task_view.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // مهم مع async
+
   await Hive.initFlutter();
-  await Hive.openBox(kTaskBox);
-  Hive.registerAdapter(TaskModelAdapter());
+
+  Hive.registerAdapter(TaskModelAdapter()); // الأول تسجّل
+ // await Hive.deleteBoxFromDisk(kTaskBox);
+  await Hive.openBox<TaskModel>(kTaskBox);  // بعدين تفتح الـ Box
+
+  Bloc.observer = SimpleBlocObserver();
   runApp(const TaskzenApp());
 }
 
@@ -32,7 +41,7 @@ class TaskzenApp extends StatelessWidget {
         ),
         fontFamily: 'Poppins',
       ),
-
+    
       home: const TaskView(),
     );
   }

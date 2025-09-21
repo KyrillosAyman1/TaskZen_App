@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:taskzen_app/constant.dart';
-import 'package:taskzen_app/views/add%20task/widgets/add_task_view_body.dart';
 import 'package:taskzen_app/views/edit%20task/widget/edit_task_view_body.dart';
 
 class EditTaskView extends StatelessWidget {

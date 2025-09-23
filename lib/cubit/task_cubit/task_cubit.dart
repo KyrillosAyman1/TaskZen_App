@@ -8,17 +8,38 @@ part 'task_state.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
+
+
+    
   List<TaskModel>? tasks;
-  //List<TaskModel>? tasksByDate;
-  fetchAllTasks() async {
-    var tasksBox = Hive.box<TaskModel>(kTaskBox);
-    tasks = tasksBox.values.toList();
+  List<TaskModel>? tasksByDate;
+  // fetchAllTasks() async {
+  //   var tasksBox = Hive.box<TaskModel>(kTaskBox);
+  //   tasks = tasksBox.values.toList();
+  //   emit(TaskSuccess());
+  // }
+
+  Future<void> completeTask(TaskModel taskModel) async {
+    taskModel.isCompleted = true;
+    await taskModel.save();
+    //fetchAllTasks();
+    fetchTasks(taskModel.date!);
   }
 
-  // fetchTasks() async {
-  //   var tasksBox = Hive.box<TaskModel>(kTaskBox);
-  //   tasksByDate = tasksBox.values.toList()
-  //       .where((task) => task.date == DateTime.now().toString())
-  //       .toList();
-  // }
+  Future<void> deleteTask(TaskModel taskModel) async {
+    await taskModel.delete();
+    //fetchAllTasks(); // رجع الليست محدثة
+     fetchTasks(taskModel.date!);
+  }
+
+  fetchTasks( String date) async {
+
+    var tasksBox = Hive.box<TaskModel>(kTaskBox);
+    tasksByDate = tasksBox.values.toList()
+        .where((task) => task.date == date)
+        .toList();
+
+    emit(TaskSuccess());
+  }
+
 }

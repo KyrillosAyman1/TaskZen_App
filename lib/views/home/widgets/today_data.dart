@@ -15,7 +15,7 @@ class TodayData extends StatelessWidget {
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
-        "${DateFormat.EEEE().format(DateTime.now())}",
+        DateFormat.EEEE().format(DateTime.now()),
         //"Friday",
         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),

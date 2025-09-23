@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskzen_app/constant.dart';
+import 'package:taskzen_app/views/home/profile.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});
@@ -25,7 +26,19 @@ class CustomAppBar extends StatelessWidget {
       ),
       trailing: Card(
         color: Theme.of(context).colorScheme.primaryContainer,
-        child: IconButton(onPressed: () {}, icon: Icon(Icons.light_mode)),
+        child: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const Profile();
+                },
+              ),
+            );
+          },
+          icon: Icon(Icons.light_mode),
+        ),
       ),
     );
   }

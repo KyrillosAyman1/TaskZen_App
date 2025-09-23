@@ -9,6 +9,9 @@ class TimeField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
+      onChanged: (value) {
+        timeController.text = value;
+      },
       icon: Icons.access_time_sharp,
       controller: timeController,
       readOnly: true,

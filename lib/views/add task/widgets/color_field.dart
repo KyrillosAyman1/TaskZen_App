@@ -11,12 +11,17 @@ class ColorField extends StatefulWidget {
 }
 
 class _ColorFieldState extends State<ColorField> {
+  
   @override
   Widget build(BuildContext context) {
     return Column(
+
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomTextField(
+          onChanged: (value) {
+            widget.colorController.text = value;
+          },
           icon: Icons.color_lens,
           readOnly: true,
           controller: widget.colorController,

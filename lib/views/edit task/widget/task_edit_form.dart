@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:taskzen_app/cubit/add_task_cubit/add_task_cubit.dart';
+import 'package:taskzen_app/cubit/task_cubit/task_cubit.dart';
 import 'package:taskzen_app/models/task_model.dart';
 import 'package:taskzen_app/views/add%20task/widgets/color_field.dart';
 import 'package:taskzen_app/views/add%20task/widgets/custom_text_field.dart';
@@ -9,14 +8,14 @@ import 'package:taskzen_app/views/add%20task/widgets/date_field.dart';
 import 'package:taskzen_app/views/add%20task/widgets/time_field.dart';
 import 'package:taskzen_app/widgets/custom_elevated_button.dart';
 
-class TaskForm extends StatefulWidget {
-  const TaskForm({super.key});
-
+class TaskEditForm extends StatefulWidget {
+  const TaskEditForm({super.key, required this.taskModel});
+  final TaskModel taskModel;
   @override
-  State<TaskForm> createState() => _TaskFormState();
+  State<TaskEditForm> createState() => _TaskFormState();
 }
 
-class _TaskFormState extends State<TaskForm> {
+class _TaskFormState extends State<TaskEditForm> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
@@ -25,7 +24,7 @@ class _TaskFormState extends State<TaskForm> {
   final TextEditingController colorController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  
+
   @override
   void dispose() {
     titleController.dispose();
@@ -39,25 +38,23 @@ class _TaskFormState extends State<TaskForm> {
 
   @override
   void initState() {
-    dateController.text = DateFormat("dd-MM-yyyy").format(DateTime.now());
-    colorController.text = Colors.lightBlue.value.toString();
+    dateController.text = widget.taskModel.date!;
+    colorController.text = widget.taskModel.color!.toString();
+    titleController.text = widget.taskModel.title!;
+    descriptionController.text = widget.taskModel.description!;
+    startTimeController.text = widget.taskModel.startTime!;
+    endTimeController.text = widget.taskModel.endTime!;
+    
 
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    startTimeController.text = TimeOfDay.now().format(context).toString();
-    endTimeController.text = TimeOfDay.now().format(context).toString();
-  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
-
       key: formKey,
       autovalidateMode: autovalidateMode,
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -68,6 +65,9 @@ class _TaskFormState extends State<TaskForm> {
           ),
 
           CustomTextField(
+            onChanged: (value) {
+              titleController.text = value;
+            },
             controller: titleController,
             hint: "Enter task title",
           ),
@@ -78,6 +78,9 @@ class _TaskFormState extends State<TaskForm> {
           ),
 
           CustomTextField(
+            onChanged: (value) {
+              descriptionController.text = value;
+            },
             controller: descriptionController,
             hint: "Enter task description",
             maxLines: 5,
@@ -136,21 +139,21 @@ class _TaskFormState extends State<TaskForm> {
 
           SizedBox(height: 30),
           CustomElevatedButton(
-            buttonText: "Create Task",
+            buttonText: "Update Task",
             onPressed: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-                var taskModel = TaskModel(
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  date: dateController.text,
-                  startTime: startTimeController.text,
-                  endTime: endTimeController.text,
-                  color: int.parse(colorController.text),
-                  isCompleted: false,
-                );
-                BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
-               
+                widget.taskModel.title = titleController.text;
+                widget.taskModel.description = descriptionController.text;
+                widget.taskModel.date = dateController.text;
+                widget.taskModel.startTime = startTimeController.text;
+                widget.taskModel.endTime = endTimeController.text;
+                widget.taskModel.color = int.parse(colorController.text);
+                 widget.taskModel.isCompleted = false;
+                widget.taskModel.save();
+                //BlocProvider.of<TaskCubit>(context).fetchAllTasks();
+                BlocProvider.of<TaskCubit>(context).fetchTasks(dateController.text);
+                Navigator.pop(context);
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});

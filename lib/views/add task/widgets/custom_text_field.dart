@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.icon ,
     required this.controller,
+    this.onChanged,
  
   });
   final String? hint;
@@ -17,11 +18,13 @@ class CustomTextField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController controller;
   final IconData? icon;
+  final void Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: TextFormField(
+        onChanged: onChanged ,
         validator: (value) {
           if (value?.isEmpty ?? true) {
             return 'This field is required';
@@ -33,7 +36,7 @@ class CustomTextField extends StatelessWidget {
         onTap: onTap,
         maxLines: maxLines,
         decoration: InputDecoration(
-          suffixIcon: Icon(icon),
+          suffixIcon: icon == null ? null : Icon(icon),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),

@@ -1,7 +1,9 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:taskzen_app/constant.dart';
+import 'package:taskzen_app/cubit/task_cubit/task_cubit.dart';
 
 class CustomDatePicker extends StatefulWidget {
   const CustomDatePicker({super.key});
@@ -11,7 +13,7 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  String selectedDate = DateTime.now().toString();
+  DateTime selectedDate = DateTime.now();
   final DatePickerController _controller = DatePickerController();
 
   @override
@@ -37,10 +39,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             selectedTextColor: Colors.white,
             controller: _controller,
             onDateChange: (date) {
-              setState(() {
-                selectedDate = date.toString();
-               
-              });
+              selectedDate = date;
+                BlocProvider.of<TaskCubit>(context).fetchTasks(DateFormat("dd-MM-yyyy").format(selectedDate));
             },
             daysCount: 45 ,
           ),

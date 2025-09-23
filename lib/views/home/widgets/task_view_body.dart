@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:taskzen_app/cubit/task_cubit/task_cubit.dart';
 import 'package:taskzen_app/views/home/widgets/custom_app_bar.dart';
 import 'package:taskzen_app/views/home/widgets/custom_date_picker.dart';
@@ -17,18 +18,15 @@ class TaskViewBody extends StatefulWidget {
 class _TaskViewBodyState extends State<TaskViewBody> {
   @override
   void initState() {
-    BlocProvider.of<TaskCubit>(context).fetchAllTasks();
-  
-  
-
-
-    
+    //BlocProvider.of<TaskCubit>(context).fetchAllTasks();
+    BlocProvider.of<TaskCubit>(context).fetchTasks( DateFormat("dd-MM-yyyy").format(DateTime.now()));
 
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return Column(
+      
       children: [
         SizedBox(height: 20),
         CustomAppBar(),

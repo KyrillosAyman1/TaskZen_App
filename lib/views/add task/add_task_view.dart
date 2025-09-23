@@ -7,14 +7,17 @@ class AddTaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios_new,color: kPrimaryColor,)),
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: const Text('Add Task',style: TextStyle(color: kPrimaryColor),),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios_new,color: kPrimaryColor,)),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
+          title: const Text('Add Task',style: TextStyle(color: kPrimaryColor),),
+        ),
+        body: const AddTaskViewBody(),
       ),
-      body: const AddTaskViewBody(),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:taskzen_app/cubit/task_cubit/task_cubit.dart';
+import 'package:taskzen_app/helper/custom_show_snak_bar.dart';
 import 'package:taskzen_app/models/task_model.dart';
 import 'package:taskzen_app/views/add%20task/widgets/color_field.dart';
 import 'package:taskzen_app/views/add%20task/widgets/custom_text_field.dart';
@@ -154,6 +155,7 @@ class _TaskFormState extends State<TaskEditForm> {
                 //BlocProvider.of<TaskCubit>(context).fetchAllTasks();
                 BlocProvider.of<TaskCubit>(context).fetchTasks(dateController.text);
                 Navigator.pop(context);
+                customShowSnackBar(context: context, message: "Task updated successfully");
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});

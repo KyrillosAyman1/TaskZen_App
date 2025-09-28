@@ -9,7 +9,7 @@ part 'add_task_state.dart';
 class AddTaskCubit extends Cubit<AddTaskState> {
   AddTaskCubit() : super(AddTaskInitial());
 
-  addTask(TaskModel task) async {
+  Future<void> addTask(TaskModel task) async {
     emit(AddTaskLoading());
     try {
       var taskBox = Hive.box<TaskModel>(kTaskBox);

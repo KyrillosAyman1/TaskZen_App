@@ -32,7 +32,7 @@ class TaskCubit extends Cubit<TaskState> {
      fetchTasks(taskModel.date!);
   }
 
-  fetchTasks( String date) async {
+  Future<void> fetchTasks( String date) async {
 
     var tasksBox = Hive.box<TaskModel>(kTaskBox);
     tasksByDate = tasksBox.values.toList()

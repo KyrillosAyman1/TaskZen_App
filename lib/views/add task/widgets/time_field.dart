@@ -21,6 +21,7 @@ class TimeField extends StatelessWidget {
           initialTime: TimeOfDay.now(),
         );
         if (pickedTime != null) {
+          // ignore: use_build_context_synchronously
           timeController.text = pickedTime.format(context).toString();
         }
       },

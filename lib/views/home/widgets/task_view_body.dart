@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:taskzen_app/cubit/task_cubit/task_cubit.dart';
+import 'package:taskzen_app/cubit/user_cubit/user_cubit.dart';
 import 'package:taskzen_app/views/home/widgets/custom_app_bar.dart';
 import 'package:taskzen_app/views/home/widgets/custom_date_picker.dart';
 import 'package:taskzen_app/views/home/widgets/task_list_view.dart';
@@ -20,7 +21,7 @@ class _TaskViewBodyState extends State<TaskViewBody> {
   void initState() {
     //BlocProvider.of<TaskCubit>(context).fetchAllTasks();
     BlocProvider.of<TaskCubit>(context).fetchTasks( DateFormat("dd-MM-yyyy").format(DateTime.now()));
-
+  BlocProvider.of<UserCubit>(context).loadUser();
     super.initState();
   }
   @override

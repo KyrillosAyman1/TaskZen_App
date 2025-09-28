@@ -40,6 +40,7 @@ class _TaskFormState extends State<TaskForm> {
   @override
   void initState() {
     dateController.text = DateFormat("dd-MM-yyyy").format(DateTime.now());
+    // ignore: deprecated_member_use
     colorController.text = Colors.lightBlue.value.toString();
 
     super.initState();
@@ -150,7 +151,7 @@ class _TaskFormState extends State<TaskForm> {
                   isCompleted: false,
                 );
                 BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
-               
+                              
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});

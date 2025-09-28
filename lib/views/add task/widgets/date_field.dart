@@ -16,6 +16,7 @@ class _DateFieldState extends State<DateField> {
 
   @override
   void initState() {
+    super.initState();
     // لو فيه تاريخ محفوظ جوه الكنترولر نزبطه
     if (widget.dateController.text.isNotEmpty) {
       try {

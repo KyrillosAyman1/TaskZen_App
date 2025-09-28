@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskzen_app/cubit/task_cubit/task_cubit.dart';
+import 'package:taskzen_app/helper/custom_show_snak_bar.dart';
 import 'package:taskzen_app/models/task_model.dart';
 import 'package:taskzen_app/views/edit%20task/edit_task_view.dart';
 
@@ -74,11 +75,14 @@ class TaskCard extends StatelessWidget {
         if (direction == DismissDirection.startToEnd) {
           // ✅ اكتمل
           BlocProvider.of<TaskCubit>(context).completeTask(taskModel);
+          customShowSnackBar(context: context, message: "Task completed successfully");
           
           
         } else {
           // 🗑️ حذف
           BlocProvider.of<TaskCubit>(context).deleteTask(taskModel);
+          customShowSnackBar(context: context, message: "Task deleted successfully");
+
 
         }
         return Future.value(false);

@@ -34,6 +34,7 @@ class _ColorFieldState extends State<ColorField> {
                     child: BlockPicker(
                       pickerColor: Color(int.parse(widget.colorController.text)),
                       onColorChanged: (value) {
+                        // ignore: deprecated_member_use
                         widget.colorController.text = value.value.toString();
                         
                       },

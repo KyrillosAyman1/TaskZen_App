@@ -28,17 +28,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (userBox.isNotEmpty) {
       // فيه بيانات → روح للتاسك فيو
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(builder: (_) => const TaskView()),
+        (route) => false,
       );
     } else {
       // مفيش بيانات → روح للبروفايل فيو
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (_) => const ProfileView()),
+        MaterialPageRoute(builder: (_) => const ProfileView(isStart: true,)),
+        (route) => false,
       );
     }
   }

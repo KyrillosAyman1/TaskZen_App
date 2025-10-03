@@ -9,7 +9,9 @@ void customShowSnackBar({required BuildContext context,required String message, 
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       padding: const EdgeInsets.all(15),
       elevation: 30,
+      duration: const Duration(seconds: 1),
       backgroundColor: color?? Theme.of(context).colorScheme.primary,
+       
       content: Text(
         message,
         style: TextStyle(color: Theme.of(context).colorScheme.primaryContainer,fontWeight: FontWeight.bold),

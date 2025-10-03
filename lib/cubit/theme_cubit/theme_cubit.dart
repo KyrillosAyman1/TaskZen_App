@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+
 import 'package:hive/hive.dart';
 import 'package:taskzen_app/constant.dart';
 import 'package:taskzen_app/models/user_model.dart';
@@ -7,7 +8,7 @@ import 'package:taskzen_app/models/user_model.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  ThemeMode themeMode = ThemeMode.system;
+  ThemeMode themeMode = ThemeMode.light;
 
   ThemeCubit() : super(ThemeInitial()) {
     // read saved preference from Hive (synchronous because box already opened in main)
@@ -27,39 +28,22 @@ class ThemeCubit extends Cubit<ThemeState> {
     emit(ThemeChanged());
   }
 
-  void changeTheme(bool isDark) {
-    themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+ void changeTheme(bool isDark) {
+  themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
 
-    // نحفظ القيمة في نفس الـ Hive box الخاص بالمستخدم
-    try {
-      final box = Hive.box<UserModel>(kUserBox);
-      if (box.isNotEmpty) {
-        final existing = box.values.first;
-        final updatedUser = UserModel(
-          isDarkMode: isDark,
-          soundOn: existing.soundOn,
-          name: existing.name,
-          imageUrl: existing.imageUrl,
-        );
-        // نستخدم نفس الـ key لأول عنصر
-        final key = box.keys.first;
-        box.put(key, updatedUser);
-      } else {
-        // لو مفيش user واحد سابق نضيف واحد جديد بقيم افتراضية للـ other fields
-        final newUser = UserModel(
-          isDarkMode: isDark,
-          soundOn: false,
-          name: '',
-          imageUrl: '',
-        );
-        box.add(newUser);
-      }
-    } catch (e) {
-      // تقدر تسجل الخطأ هنا لو حابب، لكن مش لازم
-    }
-
-    emit(ThemeChanged());
+  final box = Hive.box<UserModel>(kUserBox);
+  if (box.isNotEmpty) {
+    final key = box.keys.first;
+    box.put(key, UserModel(
+      name: box.values.first.name,
+      imageUrl: box.values.first.imageUrl,
+      isDarkMode: isDark,
+      soundOn: box.values.first.soundOn,
+    ));
   }
+  emit(ThemeChanged());
+}
+
 }
 
 

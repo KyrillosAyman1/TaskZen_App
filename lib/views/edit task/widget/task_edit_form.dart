@@ -25,6 +25,8 @@ class _TaskFormState extends State<TaskEditForm> {
   final TextEditingController colorController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  // ignore: deprecated_member_use
+  int selectedColor = Colors.lightBlue.value;
 
   @override
   void dispose() {
@@ -45,11 +47,11 @@ class _TaskFormState extends State<TaskEditForm> {
     descriptionController.text = widget.taskModel.description!;
     startTimeController.text = widget.taskModel.startTime!;
     endTimeController.text = widget.taskModel.endTime!;
-    
+    colorController.text = "Click to select color";
+    selectedColor = widget.taskModel.color!;
 
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +138,13 @@ class _TaskFormState extends State<TaskEditForm> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
 
-          ColorField(colorController: colorController),
+          ColorField(
+            colorController: colorController,
+            selectedColor: selectedColor,
+            onColorSelected: (value) =>  setState(() {
+              selectedColor = value;
+            }),
+          ),
 
           SizedBox(height: 30),
           CustomElevatedButton(
@@ -149,13 +157,18 @@ class _TaskFormState extends State<TaskEditForm> {
                 widget.taskModel.date = dateController.text;
                 widget.taskModel.startTime = startTimeController.text;
                 widget.taskModel.endTime = endTimeController.text;
-                widget.taskModel.color = int.parse(colorController.text);
-                 widget.taskModel.isCompleted = false;
+                widget.taskModel.color = selectedColor;
+                widget.taskModel.isCompleted = false;
                 widget.taskModel.save();
                 //BlocProvider.of<TaskCubit>(context).fetchAllTasks();
-                BlocProvider.of<TaskCubit>(context).fetchTasks(dateController.text);
+                BlocProvider.of<TaskCubit>(
+                  context,
+                ).fetchTasks(dateController.text);
                 Navigator.pop(context);
-                customShowSnackBar(context: context, message: "Task updated successfully");
+                customShowSnackBar(
+                  context: context,
+                  message: "Task updated successfully",
+                );
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});

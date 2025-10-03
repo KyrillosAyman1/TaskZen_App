@@ -7,14 +7,15 @@ import 'package:taskzen_app/constant.dart';
 import 'package:taskzen_app/cubit/theme_cubit/theme_cubit.dart';
 import 'package:taskzen_app/cubit/user_cubit/user_cubit.dart';
 import 'package:taskzen_app/helper/custom_show_snak_bar.dart';
+import 'package:taskzen_app/helper/save_image.dart';
 import 'package:taskzen_app/models/user_model.dart';
 import 'package:taskzen_app/views/add%20task/widgets/custom_text_field.dart';
 import 'package:taskzen_app/views/home/task_view.dart';
 import 'package:taskzen_app/widgets/custom_elevated_button.dart';
 
 class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
-
+  const ProfileView({super.key, required this.isStart});
+  final bool isStart;
   @override
   State<ProfileView> createState() => _ProfileViewState();
 }
@@ -46,7 +47,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: widget.isStart? null : IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new, color: kPrimaryColor),
         ),
@@ -69,102 +70,118 @@ class _ProfileViewState extends State<ProfileView> {
           key: formKey,
           autovalidateMode: autovalidateMode,
 
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                clipBehavior: Clip.none,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _image == null || _image == ""
-                      ? CircleAvatar(
-                          radius: 70,
-                          backgroundColor: kPrimaryColor,
-                          child: Icon(Icons.person, size: 70),
-                        )
-                      : CircleAvatar(
-                          radius: 70,
-                          backgroundImage: FileImage(File(_image!)),
+                  Stack(
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
+                    children: [
+                      _image == null || _image == ""
+                          ? CircleAvatar(
+                              radius: 70,
+                              backgroundColor: kPrimaryColor,
+                              child: Icon(Icons.person, size: 70),
+                            )
+                          : CircleAvatar(
+                              radius: 72,
+                              backgroundColor: kPrimaryColor,
+                              child: CircleAvatar(
+                                radius: 70,
+                                backgroundImage: FileImage(File(_image!)),
+                              ),
+                            ),
+
+                      Positioned(
+                        bottom: -10,
+                        right: 130,
+
+                        child: IconButton.filled(
+                          onPressed: () async {
+                            ImagePicker imagePicker = ImagePicker();
+                            XFile? image = await imagePicker.pickImage(
+                              source: ImageSource.gallery,
+                            );
+                            if (image != null) {
+                              final savedPath = await saveImagePermanently(
+                                image.path,
+                              );
+                              setState(() {
+                                _image = savedPath;
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.edit),
                         ),
-
-                  Positioned(
-                    bottom: -10,
-                    right: 130,
-
-                    child: IconButton.filled(
-                      onPressed: () async {
-                        ImagePicker imagePicker = ImagePicker();
-                        XFile? image = await imagePicker.pickImage(
-                          source: ImageSource.gallery,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Center(
+                    child: TextButton(
+                      onPressed: () {
+                        UserModel userModel = UserModel(
+                          isDarkMode: isDarkMode,
+                          soundOn: false,
+                          name: nameController.text,
+                          imageUrl: "",
                         );
-                        if (image != null) {
-                          setState(() {
-                            _image = image.path;
-                          });
-                        }
+                        BlocProvider.of<UserCubit>(
+                          context,
+                        ).updateUser(userModel);
+                        setState(() {
+                          _image = "";
+                        });
+
+                        customShowSnackBar(
+                          context: context,
+                          message: "Profile updated successfully",
+                        );
                       },
-                      icon: const Icon(Icons.edit),
+                      child: Text(
+                        "Delete Photo",
+                        style: TextStyle(color: kPrimaryColor, fontSize: 16),
+                      ),
                     ),
+                  ),
+                  SizedBox(height: 10),
+                  CustomTextField(
+                    hint: "Enter your name",
+                    controller: nameController,
+                  ),
+                  SizedBox(height: 20),
+
+                  CustomElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        UserModel userModel = UserModel(
+                          isDarkMode: isDarkMode,
+                          soundOn: false,
+                          name: nameController.text,
+                          imageUrl: _image ?? "",
+                        );
+                        BlocProvider.of<UserCubit>(context).addUser(userModel);
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TaskView(),
+                          ),
+                          (route) => false,
+                        );
+                      } else {
+                        autovalidateMode = AutovalidateMode.always;
+                        setState(() {});
+                      }
+                    },
+                    buttonText: "Done",
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    UserModel userModel = UserModel(
-                      isDarkMode: false,
-                      soundOn: false,
-                      name: nameController.text,
-                      imageUrl: "",
-                    );
-                    BlocProvider.of<UserCubit>(context).updateUser(userModel);
-                    setState(() {
-                      _image = "";
-                    });
-
-                    customShowSnackBar(
-                      context: context,
-                      message: "Profile updated successfully",
-                    );
-                  },
-                  child: Text(
-                    "Delete Photo",
-                    style: TextStyle(color: kPrimaryColor, fontSize: 16),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              CustomTextField(
-                hint: "Enter your name",
-                controller: nameController,
-              ),
-              SizedBox(height: 20),
-
-              CustomElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    UserModel userModel = UserModel(
-                      isDarkMode: isDarkMode,
-                      soundOn: false,
-                      name: nameController.text,
-                      imageUrl: _image ?? "",
-                    );
-                    BlocProvider.of<UserCubit>(context).addUser(userModel);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TaskView()),
-                    );
-                  } else {
-                    autovalidateMode = AutovalidateMode.always;
-                    setState(() {});
-                  }
-                },
-                buttonText: "Done",
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -50,7 +50,7 @@ class CustomAppBar extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ProfileView(),
+                    builder: (context) => const ProfileView(isStart: false,),
                   ),
                 );
               },
@@ -60,7 +60,7 @@ class CustomAppBar extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ProfileView(),
+                    builder: (context) => const ProfileView(isStart: false,),
                   ),
                 );
             },

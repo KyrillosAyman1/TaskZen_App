@@ -25,7 +25,9 @@ class _TaskFormState extends State<TaskForm> {
   final TextEditingController colorController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  
+  // ignore: deprecated_member_use
+  int selectedColor = Colors.lightBlue.value;
+
   @override
   void dispose() {
     titleController.dispose();
@@ -41,7 +43,7 @@ class _TaskFormState extends State<TaskForm> {
   void initState() {
     dateController.text = DateFormat("dd-MM-yyyy").format(DateTime.now());
     // ignore: deprecated_member_use
-    colorController.text = Colors.lightBlue.value.toString();
+    colorController.text = "Click to select color";
 
     super.initState();
   }
@@ -52,10 +54,10 @@ class _TaskFormState extends State<TaskForm> {
     startTimeController.text = TimeOfDay.now().format(context).toString();
     endTimeController.text = TimeOfDay.now().format(context).toString();
   }
+
   @override
   Widget build(BuildContext context) {
     return Form(
-
       key: formKey,
       autovalidateMode: autovalidateMode,
 
@@ -133,7 +135,13 @@ class _TaskFormState extends State<TaskForm> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
 
-          ColorField(colorController: colorController),
+          ColorField(
+            colorController: colorController,
+            selectedColor: selectedColor,
+            onColorSelected: (value) => setState(() {
+              selectedColor = value;
+            }),
+          ),
 
           SizedBox(height: 30),
           CustomElevatedButton(
@@ -147,11 +155,10 @@ class _TaskFormState extends State<TaskForm> {
                   date: dateController.text,
                   startTime: startTimeController.text,
                   endTime: endTimeController.text,
-                  color: int.parse(colorController.text),
+                  color: selectedColor,
                   isCompleted: false,
                 );
                 BlocProvider.of<AddTaskCubit>(context).addTask(taskModel);
-                              
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});

@@ -139,15 +139,22 @@ class TaskCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                        taskModel.date!, //"9:00 AM - 10:00 AM",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                       Icon(Icons.calendar_month, size: 16),
+                      SizedBox(width: 5),
+                      Text(
+                            taskModel.date!, //"9:00 AM - 10:00 AM",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                    ],
+                  ),
                 ],
               ),
       

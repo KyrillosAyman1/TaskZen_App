@@ -1,16 +1,25 @@
-# taskzen_app
+# 📝 TaskZen App  
 
-A new Flutter project.
+**TaskZen** is a simple yet powerful **To-Do List App** built with **Flutter**.  
+It helps you stay organized, manage your daily tasks, and keep track of deadlines with ease.  
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
+- Add, edit, and delete tasks.  
+- Store tasks locally with **Hive Database**.  
+- Dark & Light mode support.  
+- Clean and user-friendly UI.  
+- Filter tasks by date.  
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🛠️ Tech Stack
+- [Flutter](https://flutter.dev/)  
+- [Dart](https://dart.dev/)  
+- [Hive](https://docs.hivedb.dev/#/) for local storage  
+- [Bloc](https://bloclibrary.dev/#/) for state management  
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+
